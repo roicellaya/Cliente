@@ -1,0 +1,22 @@
+<Alloy>
+    <TabGroup id="mainTabGroup">
+        <Tab id="tab1">
+            <Window id="updateWin"> 
+                 <View id="mainView">
+                    <TextField id="updateTxtF"/>
+                    <Button id="updateBtn" onClick="updateData" />
+                    <Button id="back" onClick="back" />
+                    
+                    <Label id="taskIdLabel"></Label>
+                    <Label id="taskId"></Label>
+                    
+                    <Label id="taskTitleLabel"></Label>
+                    <Label id="taskTitle"></Label>
+                    
+                    <Button id="edit" />
+                    <Button id="remove" />
+                 </View>
+            </Window>
+        </Tab>
+    </TabGroup>
+</Alloy>

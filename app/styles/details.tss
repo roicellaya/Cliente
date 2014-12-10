@@ -1,0 +1,44 @@
+".container":{
+    backgroundColor:"white",
+},
+"TabGroup":{ 
+       backgroundColor:"black", 
+}, 
+"View":{     
+       layout:'vertical', 
+},
+"#back":{
+    title:"Regresar", 
+    height:38,
+    width:320,
+    top:300,
+    left:0,
+},
+"#inserTxtF":{ 
+       color:"#336699", 
+       top:"10dp", 
+       left:"10dp", 
+       width:"290dp", 
+       height:"50dp", 
+}, 
+"#updateBtn":{ 
+       title:"Editar", 
+       top:"10dp", 
+       left:"180dp", 
+       width:"124dp", 
+       height:"50dp", 
+},
+"#edit":{
+    title:"Editar", 
+    height:38,
+    width:320,
+    top:300,
+    left:0,
+},
+"#remove":{
+    title:"Eliminar", 
+    height:38,
+    width:320,
+    top:300,
+    left:0,
+},

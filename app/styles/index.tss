@@ -1,0 +1,82 @@
+"Window": {
+    layout: 'composite',
+},
+"mainTabGroup":{
+       backgroundColor:"black", 
+},
+"#tab1":{ 
+       title:"Fresas", 
+       icon:"fresa.png", 
+}, 
+"#tab2":{ 
+       title:"Piñas", 
+       icon:"pineapple.jpg", 
+}, 
+"#tab3":{
+       title:"Kiwi", 
+       icon:"kiwi.png", 
+},
+"#solicitarKiwi":{ 
+       color:"#336692", 
+       top:"40dp", 
+       left:"40dp",
+       height:"50dp", 
+},
+"#insertKiwi":{ 
+       color:"#336692", 
+       top:"40dp", 
+       left:"10dp", 
+       width:"290dp", 
+       height:"50dp",
+},
+"#producirKiwi":{ 
+       color:"#336692", 
+       top:"40dp", 
+       height:"50dp",
+       left:"10dp",
+},
+"#solicitarFresa":{ 
+       color:"#336692", 
+       top:"40dp", 
+       left:"40dp",
+       height:"50dp", 
+},
+"#insertFresa":{ 
+       color:"#336692", 
+       top:"40dp", 
+       left:"10dp", 
+       width:"290dp", 
+       height:"50dp",
+},
+"#producirFresa":{ 
+       color:"#336692", 
+       top:"40dp", 
+       height:"50dp",
+       left:"10dp",
+},
+"#solicitarPina":{ 
+       color:"#336692", 
+       top:"40dp", 
+       left:"40dp",
+       height:"50dp", 
+},
+"#insertPina":{ 
+       color:"#336692", 
+       top:"40dp", 
+       left:"10dp", 
+       width:"290dp", 
+       height:"50dp",
+       
+},
+"#producirPina":{ 
+       color:"#336692", 
+       top:"40dp", 
+       height:"50dp",
+       left:"10dp",
+},
+".vertical": {
+    layout: 'vertical',
+}
+".horizontal": {
+    layout: 'horizontal',
+}
