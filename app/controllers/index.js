@@ -1,6 +1,3 @@
-//Array to store the data from the todo list
-
-//We execute the function to show the data for the first view
 getTodoList("kiwi");
 getTodoList("fresa");
 getTodoList("pina");
@@ -9,21 +6,9 @@ var json1;
 var json2;
 var json3;
 
-function getJsonCorrecto(fruta){
-    if(fruta=="kiwi"){
-        return json3;
-    }
-    if(fruta=="fresa"){
-        return json1;
-    }
-    if(fruta=="pina"){
-        return json2;
-    }
-}
-
 function getTodoList(fruta) {
     var dataArray = [];
-    //function to use HTTP to connect to a web server and transfer the data.
+	// Cliente para obtener todas las frutas
     var sendit = Ti.Network.createHTTPClient({
         onerror : function(e) {
             Ti.API.debug(e.error);
@@ -32,11 +17,9 @@ function getTodoList(fruta) {
         timeout : 1000,
     });
     
-    //Here you have to change it for your local ip
     sendit.open('GET', 'http://localhost:3000/api/frutas/'+fruta);
     sendit.send();
     
-    //Function to be called upon a successful response
     sendit.onload = function(e) {
         var json1 ;
         var json2 ;
@@ -55,6 +38,7 @@ function getTodoList(fruta) {
             tamano = json3.length;
         }
         
+        //var json = json.message;
         if (tamano == 0) {
             if(fruta=='fresa'){
                 $.tableViewFresa.headerTitle = "There are no fruits in our "+fruta+" stock";
@@ -70,13 +54,14 @@ function getTodoList(fruta) {
         //Emptying the data to refresh the view
         dataArray = [];
         
-        //Insert the JSON data to the table view
         for (var i = 0; i < tamano; i++) {
             if(fruta=="fresa"){
                 var row = Ti.UI.createTableViewRow({
                     hasCheck : false,
                     color : '#ffffff',
-                }); 
+                });
+				
+				// Boton para vender
                 var vender =  Titanium.UI.createImageView({
                     image:"vender.png",
                     width:64,
@@ -84,7 +69,7 @@ function getTodoList(fruta) {
                     right:20,
                     top:-5
                 });
-                vender.miId= json1[i].value._id;
+                vender.id= json1[i].value._id;
                 vender.addEventListener('click',function(e){
                     var sendUpdate = Ti.Network.createHTTPClient({
                         onerror : function(e) {
@@ -93,15 +78,16 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-                    console.log("El ID es "+e.source.miId);
-                    sendUpdate.open('PUT', 'http://localhost:3000/api/frutas/'+e.source.miId);
-                    sendUpdate.send();
+                    var params = {"_id":e.source.id};
+                    sendUpdate.open('PUT', 'http://localhost:3000/api/frutas/venderfruta');
+                    sendUpdate.send(params);
                     
                     sendUpdate.onload = function(e){
                         getTodoList(fruta);
                     };
                 });
                 
+				// Boton que indica que fue vendido
                 var noVender =  Titanium.UI.createImageView({
                     image:"_vender.png",
                     width:64,
@@ -110,6 +96,7 @@ function getTodoList(fruta) {
                     top:-5
                 });
                 
+				// Boton para despachar
                 var despachar =  Titanium.UI.createImageView({
                     image:"despachar.png",
                     width:64,
@@ -118,6 +105,7 @@ function getTodoList(fruta) {
                     top:-5
                 }); 
                 
+				// Nombre que se muestra en la fila
                 var nombre =  Titanium.UI.createLabel({
                     text:json1[i].value.fruta +"  "+ json1[i].value._id.substr(json1[i].value._id.length - 3),
                     font:{fontSize:12,fontWeight:'bold'},
@@ -128,7 +116,7 @@ function getTodoList(fruta) {
                     height:12
                 });
                 
-                despachar.miID=json1[i].value._id;
+                despachar.id=json1[i].value._id;
                 despachar.addEventListener('click',function(e){
                     var sendDelete = Ti.Network.createHTTPClient({
                         onerror : function(e) {
@@ -137,9 +125,11 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-                    console.log("El ID es "+e.source.miID);
-                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/' + e.source.miID);
-                    sendDelete.send();
+                    console.log("El e es "+e);
+					
+                    var params = {"_id":e.source.id};
+                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/despacharfruta');
+                    sendDelete.send(params);
                     
                     sendDelete.onload = function(e){
                         getTodoList(fruta);
@@ -154,6 +144,79 @@ function getTodoList(fruta) {
                     row.add(noVender);
                     row.add(despachar);
                 }
+                
+                row.id = vender.id;
+                
+                row.addEventListener('click', function(e) {
+                    var request = Ti.Network.createHTTPClient({
+                        onload: function(ee) {
+                            var info = JSON.parse(this.responseText);
+                            console.log('info1: ', info);
+                            info = info.message;
+                            
+                            // Ventana de informacion
+                            var infoWindow = Ti.UI.createWindow({
+                                layout : 'vertical',
+                                height : Titanium.UI.SIZE,
+                                width : Titanium.UI.SIZE,
+                                top: 0,
+                                left: 0
+                            });
+                            
+                            var name = Ti.UI.createLabel({
+                                text : 'Fruta: ' + info.fruta,
+                                color : '#000',
+                                font : {fontSize:15},
+                                height :Titanium.UI.SIZE,
+                                width : Titanium.UI.SIZE,
+                                top : 10,
+                                left : 10,
+                                textAlign : 'center'
+                            });
+                            
+                            var status = Ti.UI.createLabel({
+                                text : 'Estatus: ' + info.status,
+                                color : '#000',
+                                font : {fontSize:15},
+                                height :Titanium.UI.SIZE,
+                                width : Titanium.UI.SIZE,
+                                top : 20,
+                                left : 10,
+                                textAlign : 'center'
+                            });
+                            
+                            infoWindow.add(name);
+                            infoWindow.add(status);
+                            
+                            var close = Ti.UI.createButton({
+                                title : 'Cerrar',
+                                height : 60,
+                                width : 100,
+                                top : 10,
+                                right : 10
+                            });
+                         
+                            close.addEventListener('click', function() {
+                                infoWindow.close();
+                            });
+                            
+                            infoWindow.add(close);
+                            
+                            infoWindow.open({
+                                modal : true
+                            });
+                        },
+                        onerror: function(e) {
+                            Ti.API.debug(e.error);
+                            alert('Ocurrio un error al cargar la información');
+                        },
+                        timeout: 1000
+                    });
+                    
+                    request.open('GET', 'http://localhost:3000/api/frutas/fruta/' + e.source.id);
+                    request.send();
+                });
+                
                 dataArray.push(row);
                 $.tableViewFresa.setData(dataArray);
             }
@@ -162,7 +225,9 @@ function getTodoList(fruta) {
                     title : json2[i].value.fruta,
                     hasCheck : false,
                     color : '#ffffff',
-                }); 
+                });
+				
+				// Boton para vender
                 var vender =  Titanium.UI.createImageView({
                     image:"vender.png",
                     width:64,
@@ -170,7 +235,7 @@ function getTodoList(fruta) {
                     right:20,
                     top:-5
                 });
-                vender.miId= json2[i].value._id;
+                vender.id= json2[i].value._id;
                 vender.addEventListener('click',function(e){
                     var sendUpdate = Ti.Network.createHTTPClient({
                         onerror : function(e) {
@@ -179,9 +244,10 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-                    console.log("El ID es "+e.source.miId);
-                    sendUpdate.open('PUT', 'http://localhost:3000/api/frutas/' + e.source.miId);
-                    sendUpdate.send();
+					
+                    var params = {"_id":e.source.id};
+                    sendUpdate.open('PUT', 'http://localhost:3000/api/frutas/venderfruta');
+                    sendUpdate.send(params);
                     
                     sendUpdate.onload = function(e){
                         getTodoList(fruta);
@@ -196,6 +262,7 @@ function getTodoList(fruta) {
                     top:-5
                 });
                 
+				// Boton para despachar
                 var despachar =  Titanium.UI.createImageView({
                     image:"despachar.png",
                     width:64,
@@ -203,6 +270,7 @@ function getTodoList(fruta) {
                     right:104,
                     top:-5
                 }); 
+				// Nombre que aparece en la fila
                 var nombre =  Titanium.UI.createLabel({
                     text:json2[i].value.fruta +"  "+ json2[i].value._id.substr(json2[i].value._id.length - 3),
                     font:{fontSize:12,fontWeight:'bold'},
@@ -212,7 +280,7 @@ function getTodoList(fruta) {
                     left:20,
                     height:12
                 });
-                despachar.miID=json2[i].value._id;
+                despachar.id=json2[i].value._id;
                 despachar.addEventListener('click',function(e){
                     var sendDelete = Ti.Network.createHTTPClient({
                         onerror : function(e) {
@@ -221,9 +289,11 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-                    console.log("El ID es "+e.source.miID);
-                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/' + e.source.miID);
-                    sendDelete.send();
+					
+					
+                    var params = {"_id":e.source.id};
+                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/despacharfruta');
+                    sendDelete.send(params);
                     
                     sendDelete.onload = function(e){
                         getTodoList(fruta);
@@ -247,6 +317,7 @@ function getTodoList(fruta) {
                     color : '#ffffff',
                 }); 
                 
+				// Boton para vender
                 var vender =  Titanium.UI.createImageView({
                     image:'vender.png',
                     width:64,
@@ -254,7 +325,7 @@ function getTodoList(fruta) {
                     right:20,
                     top:-5
                 });
-                vender.miId= json3[i].value._id;
+                vender.id= json3[i].value._id;
                 vender.addEventListener('click',function(e){
                     var sendUpdate = Ti.Network.createHTTPClient({
                         onerror : function(e) {
@@ -263,9 +334,10 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-                    console.log("El ID es "+e.source.miId);
-                    sendUpdate.open('PUT', 'http://localhost:3000/api/frutas/' + e.source.miId);
-                    sendUpdate.send();
+					
+                    var params = {"_id":e.source.id};
+                    sendUpdate.open('PUT', 'http://localhost:3000/api/frutas/venderfruta');
+                    sendUpdate.send(params);
                     
                     sendUpdate.onload = function(e){
                         getTodoList(fruta);
@@ -280,6 +352,7 @@ function getTodoList(fruta) {
                     top:-5
                 });
                 
+				// Boton para despachar
                 var despachar =  Titanium.UI.createImageView({
                     image:'despachar.png',
                     width:64,
@@ -287,6 +360,7 @@ function getTodoList(fruta) {
                     right:104,
                     top:-5
                 }); 
+				// Nombre que aparece en la fila
                 var nombre =  Titanium.UI.createLabel({
                     text:json3[i].value.fruta +"  "+ json3[i].value._id.substr(json3[i].value._id.length - 3),
                     font:{fontSize:12,fontWeight:'bold'},
@@ -296,7 +370,7 @@ function getTodoList(fruta) {
                     left:20,
                     height:12
                 });
-                despachar.miID=json3[i].value._id;
+                despachar.id=json3[i].value._id;
                 despachar.addEventListener('click',function(e){
                     var sendDelete = Ti.Network.createHTTPClient({
                         onerror : function(e) {
@@ -305,9 +379,9 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-                    console.log("El ID es "+e.source.miId);
-                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/' + e.source.miID);
-                    sendDelete.send();
+                    var params = {"_id":e.source.id};
+                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/despacharfruta');
+                    sendDelete.send(params);
                     
                     sendDelete.onload = function(e){
                         getTodoList(fruta);
@@ -328,11 +402,11 @@ function getTodoList(fruta) {
     };
 };
 
-// Solicitar kiwis
 function solicitarKiwi() {
     var request = Ti.Network.createHTTPClient({
         onload : function(e) {
-            getTodoList("kiwi");
+        //    alert(this.responseText);
+        getTodoList("kiwi");
         },
         onerror : function(e) {
             Ti.API.debug(e.error);
@@ -340,17 +414,17 @@ function solicitarKiwi() {
         },
         timeout : 1000,
     });
-    request.open("POST", "http://localhost:3000/api/frutas");
-    
-    var params = ({"type": "kiwi"});
-    request.send(params);
+    request.open("POST", "http://localhost:3000/api/frutas/kiwi/solicitarfrutas");
+    //      var params = ({"id": $.inserTxtF.value});
+    //      console.log ('lo que tiene params ', params);
+    request.send();
 }
 
-// Solicitar pinas
 function solicitarPina() {
     var request = Ti.Network.createHTTPClient({
         onload : function(e) {
-            getTodoList("pina");
+        //    alert(this.responseText);
+        getTodoList("pina");
         },
         onerror : function(e) {
             Ti.API.debug(e.error);
@@ -358,15 +432,35 @@ function solicitarPina() {
         },
         timeout : 1000,
     });
-    request.open("POST", "http://localhost:3000/api/frutas");
-    var params = ({"type": "pina"});
-    request.send(params);
+    request.open("POST", "http://localhost:3000/api/frutas/pina/solicitarfrutas");
+    //      var params = ({"id": $.inserTxtF.value});
+    //      console.log ('lo que tiene params ', params);
+    request.send();
+}
+
+function solicitarFresa() {
+    var request = Ti.Network.createHTTPClient({
+        onload : function(e) {
+        //    alert(this.responseText);
+        getTodoList("fresa");
+        },
+        onerror : function(e) {
+            Ti.API.debug(e.error);
+            alert('There was an error during the conexion');
+        },
+        timeout : 1000,
+    });
+    request.open("POST", "http://localhost:3000/api/frutas/fresa/solicitarfrutas");
+    //      var params = ({"id": $.inserTxtF.value});
+    //      console.log ('lo que tiene params ', params);
+    request.send();
 }
 
 function producirPina() {
     var request = Ti.Network.createHTTPClient({
         onload : function(e) {
-            getTodoList("pina");
+        //    alert(this.responseText);
+        getTodoList("pina");
         },
         onerror : function(e) {
             Ti.API.debug(e.error);
@@ -379,5 +473,38 @@ function producirPina() {
     request.send(params);
 }
 
+function producirKiwi() {
+    var request = Ti.Network.createHTTPClient({
+        onload : function(e) {
+        //    alert(this.responseText);
+        getTodoList("kiwi");
+        },
+        onerror : function(e) {
+            Ti.API.debug(e.error);
+            alert('There was an error during the conexion');
+        },
+        timeout : 1000,
+    });
+    request.open("POST", "http://localhost:3000/api/frutas/roicel");
+    var params = ({"type": "kiwi", "quantity": $.insertKiwi.value});
+    request.send(params);
+}
+
+function producirFresa() {
+    var request = Ti.Network.createHTTPClient({
+        onload : function(e) {
+        //    alert(this.responseText);
+        getTodoList("fresa");
+        },
+        onerror : function(e) {
+            Ti.API.debug(e.error);
+            alert('There was an error during the conexion');
+        },
+        timeout : 1000,
+    });
+    request.open("POST", "http://localhost:3000/api/frutas/roicel");
+    var params = ({"type": "fresa", "quantity": $.insertFresa.value});
+    request.send(params);
+}
 
 $.mainTabGroup.open();

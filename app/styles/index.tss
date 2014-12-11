@@ -23,17 +23,17 @@
        height:"50dp", 
 },
 "#insertKiwi":{ 
-       color:"#336692", 
-       top:"40dp", 
-       left:"10dp", 
+       color:"#336692",
+       left:"120dp", 
        width:"290dp", 
        height:"50dp",
+       top: "-50dp",
 },
 "#producirKiwi":{ 
-       color:"#336692", 
-       top:"40dp", 
+       color:"#336692",
        height:"50dp",
-       left:"10dp",
+       left:"420dp",
+       top: "-50dp",
 },
 "#solicitarFresa":{ 
        color:"#336692", 
@@ -42,17 +42,17 @@
        height:"50dp", 
 },
 "#insertFresa":{ 
-       color:"#336692", 
-       top:"40dp", 
-       left:"10dp", 
+       color:"#336692",
+       left:"120dp", 
        width:"290dp", 
        height:"50dp",
+       top: "-50dp",
 },
 "#producirFresa":{ 
-       color:"#336692", 
-       top:"40dp", 
+       color:"#336692",
        height:"50dp",
-       left:"10dp",
+       left:"420dp",
+       top: "-50dp",
 },
 "#solicitarPina":{ 
        color:"#336692", 
@@ -61,22 +61,24 @@
        height:"50dp", 
 },
 "#insertPina":{ 
-       color:"#336692", 
-       top:"40dp", 
-       left:"10dp", 
+       color:"#336692",
+       left:"120dp", 
        width:"290dp", 
        height:"50dp",
+       top: "-50dp",
        
 },
 "#producirPina":{ 
-       color:"#336692", 
-       top:"40dp", 
+       color:"#336692",
        height:"50dp",
-       left:"10dp",
+       left:"420dp",
+       top: "-50dp",
 },
 ".vertical": {
     layout: 'vertical',
-}
-".horizontal": {
-    layout: 'horizontal',
-}
+},
+"TableView": {
+    center: true,
+    height: "70%",
+    width: "70%",
+},

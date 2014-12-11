@@ -2,39 +2,27 @@
     <TabGroup id="mainTabGroup"> 
         <!-- On click event execute getTodoList -->
         <Tab id="tab1" > 
-            <Window id="readWin">
-                <View class="vertical">
+            <Window id="readWin" class="vertical">
                  <TableView id="tableViewFresa"/>
-                 </View>
-                 <View class="horizontal">
-                     <Button id="solicitarFresa">Solicitar</Button>
-                     <TextField id="insertFresa"/> 
-                     <Button id="producirFresa">Mandar a producir</Button> 
-                 </View>
+                 <Button id="solicitarFresa">Solicitar</Button>
+                 <TextField id="insertFresa"/> 
+                 <Button id="producirFresa">Mandar a producir</Button>
             </Window> 
         </Tab> 
         <Tab id="tab2" > 
-            <Window id="readWin">
-                <View class="vertical">
+            <Window id="readWin" class="vertical">
                  <TableView id="tableViewPina"/>
-                  </View>
-                 <View class="horizontal">
-                     <Button id="solicitarPina" onClick="solicitarPina">Solicitar</Button>
-                     <TextField id="insertPina"/> 
-                     <Button id="producirPina" onClick="producirPina">Mandar a producir</Button>
-                 </View>
+                 <Button id="solicitarPina" onClick="solicitarPina">Solicitar</Button>
+                 <TextField id="insertPina"/> 
+                 <Button id="producirPina" onClick="producirPina">Mandar a producir</Button>
             </Window>
         </Tab> 
         <Tab id="tab3" > 
-            <Window id="readWin">
-                <View class="vertical">
+            <Window id="readWin" class="vertical">
                  <TableView id="tableViewKiwi"/>
-                 </View>
-                 <View class="horizontal">
-                     <Button id="solicitarKiwi" onClick="solicitarKiwi">Solicitar</Button>
-                     <TextField id="insertKiwi"/>
-                     <Button id="producirKiwi">Mandar a producir</Button>
-                 </View>
+                 <Button id="solicitarKiwi" onClick="solicitarKiwi">Solicitar</Button>
+                 <TextField id="insertKiwi"/>
+                 <Button id="producirKiwi">Mandar a producir</Button>
             </Window> 
         </Tab>
     </TabGroup>
