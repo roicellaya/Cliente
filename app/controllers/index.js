@@ -107,7 +107,7 @@ function getTodoList(fruta) {
                 
 				// Nombre que se muestra en la fila
                 var nombre =  Titanium.UI.createLabel({
-                    text:json1[i].value.fruta +"  "+ json1[i].value._id.substr(json1[i].value._id.length - 3),
+                    text:json1[i].value.fruta,
                     font:{fontSize:12,fontWeight:'bold'},
                     width:'auto',
                     textAlign:'left',
@@ -272,7 +272,7 @@ function getTodoList(fruta) {
                 }); 
 				// Nombre que aparece en la fila
                 var nombre =  Titanium.UI.createLabel({
-                    text:json2[i].value.fruta +"  "+ json2[i].value._id.substr(json2[i].value._id.length - 3),
+                    text:json2[i].value.fruta,
                     font:{fontSize:12,fontWeight:'bold'},
                     width:'auto',
                     textAlign:'left',
@@ -362,7 +362,7 @@ function getTodoList(fruta) {
                 }); 
 				// Nombre que aparece en la fila
                 var nombre =  Titanium.UI.createLabel({
-                    text:json3[i].value.fruta +"  "+ json3[i].value._id.substr(json3[i].value._id.length - 3),
+                    text:json3[i].value.fruta,
                     font:{fontSize:12,fontWeight:'bold'},
                     width:'auto',
                     textAlign:'left',
