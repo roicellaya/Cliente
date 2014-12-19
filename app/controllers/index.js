@@ -8,7 +8,7 @@ var json3;
 
 function getTodoList(fruta) {
     var dataArray = [];
-	// Cliente para obtener todas las frutas
+    // Cliente para obtener todas las frutas
     var sendit = Ti.Network.createHTTPClient({
         onerror : function(e) {
             Ti.API.debug(e.error);
@@ -60,8 +60,8 @@ function getTodoList(fruta) {
                     hasCheck : false,
                     color : '#ffffff',
                 });
-				
-				// Boton para vender
+                
+                // Boton para vender
                 var vender =  Titanium.UI.createImageView({
                     image:"vender.png",
                     width:64,
@@ -87,7 +87,7 @@ function getTodoList(fruta) {
                     };
                 });
                 
-				// Boton que indica que fue vendido
+                // Boton que indica que fue vendido
                 var noVender =  Titanium.UI.createImageView({
                     image:"_vender.png",
                     width:64,
@@ -96,7 +96,7 @@ function getTodoList(fruta) {
                     top:-5
                 });
                 
-				// Boton para despachar
+                // Boton para despachar
                 var despachar =  Titanium.UI.createImageView({
                     image:"despachar.png",
                     width:64,
@@ -105,7 +105,7 @@ function getTodoList(fruta) {
                     top:-5
                 }); 
                 
-				// Nombre que se muestra en la fila
+                // Nombre que se muestra en la fila
                 var nombre =  Titanium.UI.createLabel({
                     text:json1[i].value.fruta,
                     font:{fontSize:12,fontWeight:'bold'},
@@ -126,9 +126,9 @@ function getTodoList(fruta) {
                         timeout : 1000,
                     });
                     console.log("El e es "+e);
-					
+                    
                     var params = {"_id":e.source.id};
-                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/despacharfruta');
+                    sendDelete.open('PUT', 'http://localhost:3000/api/frutas/despacharfruta');
                     sendDelete.send(params);
                     
                     sendDelete.onload = function(e){
@@ -226,8 +226,8 @@ function getTodoList(fruta) {
                     hasCheck : false,
                     color : '#ffffff',
                 });
-				
-				// Boton para vender
+                
+                // Boton para vender
                 var vender =  Titanium.UI.createImageView({
                     image:"vender.png",
                     width:64,
@@ -244,7 +244,7 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-					
+                    
                     var params = {"_id":e.source.id};
                     sendUpdate.open('PUT', 'http://localhost:3000/api/frutas/venderfruta');
                     sendUpdate.send(params);
@@ -262,7 +262,7 @@ function getTodoList(fruta) {
                     top:-5
                 });
                 
-				// Boton para despachar
+                // Boton para despachar
                 var despachar =  Titanium.UI.createImageView({
                     image:"despachar.png",
                     width:64,
@@ -270,7 +270,7 @@ function getTodoList(fruta) {
                     right:104,
                     top:-5
                 }); 
-				// Nombre que aparece en la fila
+                // Nombre que aparece en la fila
                 var nombre =  Titanium.UI.createLabel({
                     text:json2[i].value.fruta,
                     font:{fontSize:12,fontWeight:'bold'},
@@ -289,10 +289,10 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-					
-					
+                    
+                    
                     var params = {"_id":e.source.id};
-                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/despacharfruta');
+                    sendDelete.open('PUT', 'http://localhost:3000/api/frutas/despacharfruta');
                     sendDelete.send(params);
                     
                     sendDelete.onload = function(e){
@@ -317,7 +317,7 @@ function getTodoList(fruta) {
                     color : '#ffffff',
                 }); 
                 
-				// Boton para vender
+                // Boton para vender
                 var vender =  Titanium.UI.createImageView({
                     image:'vender.png',
                     width:64,
@@ -334,7 +334,7 @@ function getTodoList(fruta) {
                         },
                         timeout : 1000,
                     });
-					
+                    
                     var params = {"_id":e.source.id};
                     sendUpdate.open('PUT', 'http://localhost:3000/api/frutas/venderfruta');
                     sendUpdate.send(params);
@@ -352,7 +352,7 @@ function getTodoList(fruta) {
                     top:-5
                 });
                 
-				// Boton para despachar
+                // Boton para despachar
                 var despachar =  Titanium.UI.createImageView({
                     image:'despachar.png',
                     width:64,
@@ -360,7 +360,7 @@ function getTodoList(fruta) {
                     right:104,
                     top:-5
                 }); 
-				// Nombre que aparece en la fila
+                // Nombre que aparece en la fila
                 var nombre =  Titanium.UI.createLabel({
                     text:json3[i].value.fruta,
                     font:{fontSize:12,fontWeight:'bold'},
@@ -380,7 +380,7 @@ function getTodoList(fruta) {
                         timeout : 1000,
                     });
                     var params = {"_id":e.source.id};
-                    sendDelete.open('DELETE', 'http://localhost:3000/api/frutas/despacharfruta');
+                    sendDelete.open('PUT', 'http://localhost:3000/api/frutas/despacharfruta');
                     sendDelete.send(params);
                     
                     sendDelete.onload = function(e){
